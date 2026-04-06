@@ -7,7 +7,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 
-const chars = "0123456789!█▒░ABCDEF";
+const chars = "0123456789!_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const font_size = 16;
 const columns = canvas.width/font_size;
 const hermesapi = 'https://hermesapi.netlify.app/.netlify/functions/main';
@@ -58,12 +58,12 @@ function getUserID(){
     return id;
 }
 
-const blockChar = '█';
-const blockChance = 0.35;
+const dotChar = '.';
+const dotChance = 0.15;
 const normal_fps = 18;
 
 function randomChar(){
-    return Math.random() < blockChance ? blockChar : chars[Math.floor(Math.random() * chars.length)];
+    return Math.random() < dotChance ? dotChar : chars[Math.floor(Math.random() * chars.length)];
 }
 
 function randomChars(len){
