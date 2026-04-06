@@ -58,7 +58,58 @@ function getUserID(){
     return id;
 }
 
+const blockChar = '█';
+const blockChance = 0.35;
+const normal_fps = 18;
 
+function randomChar(){
+    return Math.random() < blockChance ? blockChar : chars[Math.floor(Math.random() * chars.length)];
+}
+
+function randomChars(len){
+    let txt = "";
+    for(let i = 0; i < len; i++){
+        txt += randomChar();
+    }
+    return txt;
+}
+
+function scrambleAnim(original, final, text, fps){
+    if(text.__timer){
+        clearInterval(text.__timer);
+        text.__timer = null;
+    }
+    let progress = 0;
+    text.__timer = setInterval(()=> {
+    
+    const speed = 0.045;
+    const len = Math.max(original.length, final.length);
+    
+    let out = "";
+
+    progress += len * speed;
+
+    for (let i = 0; i < len; i++) {
+        const target = final[i] ?? "";
+        const originalChar = original[i] ?? "";
+        if(i < progress){
+            out += target;
+        }else{
+            if(target === " " || originalChar === " ") out += " ";
+            else out += randomChar();
+        }
+    }
+    text.textContent = out;
+    console.log(progress);
+    if(progress >= len){
+        text.textContent = final;
+        clearInterval(text.__timer)
+        text.__timer = null;
+    }
+}, 1000 / fps);
+   
+
+}
 
 async function getPrescript(){
     const date = new Date();
@@ -114,3 +165,12 @@ async function showPrescript(){
 
 setInterval(draw, 100);
 showPrescript();
+
+
+const info_btn = document.getElementById("info-btn");
+info_btn.textContent = randomChars(4);
+
+info_btn.addEventListener("mouseenter", (e) => {scrambleAnim(info_btn.textContent, "Info", info_btn, normal_fps)});
+info_btn.addEventListener("mouseleave", (e) => {scrambleAnim(info_btn.textContent, randomChars(4), info_btn, normal_fps)});
+
+
