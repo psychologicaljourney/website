@@ -41,13 +41,16 @@ body{
 
 .index-button{
     font-family: PixelMPlus12;
-    color: #fff;
+    color: #7bcaf4;
 
     
     font-size: 40px;
     background-color: rgb(0, 0, 0);
     text-align: center;
-    text-shadow: 0 0 0.2px #fff, 0 0 12px #4269b8, 0 0 50px #4269b8;
+    text-shadow:
+    0 0 10px rgba(153, 237, 255, 0.9),
+    0 0 20px rgba(153, 237, 255, 0.7),
+    0 0 40px rgba(0, 183, 235, 0.4);
 
     margin-left: 50%;
     transform: translate(-50%, 10%);
