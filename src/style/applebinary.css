@@ -1,0 +1,45 @@
+
+textarea{
+    resize: none;
+
+    font-family: PixelMPlus12;
+    font-size: 24px;
+    color: #7bcaf4;
+    background-color: black;
+    text-shadow:
+    0 0 10px rgba(153, 237, 255, 0.9),
+    0 0 20px rgba(153, 237, 255, 0.7),
+    0 0 40px rgba(0, 183, 235, 0.4);
+
+}
+
+textarea::-webkit-scrollbar{
+    width: .25em;
+}
+
+textarea::-webkit-scrollbar-track{
+    background-color: #000000;
+}
+
+textarea::-webkit-scrollbar-thumb{
+    background-color: #ffffff;
+    border-radius: 1em;
+}
+
+button{
+    width: 160px !important;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+#actual-stuff{
+    text-align: center;
+}
+
+.index-text-title{
+    font-family: PixelMPlus12;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 0.2px #fff, 0 0 12px #4269b8, 0 0 50px #4269b8;
+}
+

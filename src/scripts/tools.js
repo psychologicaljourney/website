@@ -1,0 +1,4 @@
+
+
+
+addScrambledButton('apple-binary', 'AppleBinary')

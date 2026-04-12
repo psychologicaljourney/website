@@ -7,12 +7,12 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 
-const chars = "0123456789!_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const font_size = 16;
 const columns = canvas.width/font_size;
 const hermesapi = 'https://hermesapi.netlify.app/.netlify/functions/main';
 
 const drops = [];
+const bg_chars = "0123456789!_.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz▒░";
 
 for (let i = 0; i < columns; i++) {
     drops[i] = Math.floor(Math.random() * 100);
@@ -26,7 +26,7 @@ function draw(){
     context.font = font_size + 'px PixelMPlus12';
 
     for (let i = 0; i < drops.length; i++) {
-        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        const text = bg_chars.charAt(Math.floor(Math.random() * bg_chars.length));
         context.fillText(text, i*font_size, drops[i]*font_size);
 
         if(drops[i] * font_size > canvas.height && Math.random() > 0.975){
@@ -58,58 +58,6 @@ function getUserID(){
     return id;
 }
 
-const dotChar = '.';
-const dotChance = 0.15;
-const normal_fps = 18;
-
-function randomChar(){
-    return Math.random() < dotChance ? dotChar : chars[Math.floor(Math.random() * chars.length)];
-}
-
-function randomChars(len){
-    let txt = "";
-    for(let i = 0; i < len; i++){
-        txt += randomChar();
-    }
-    return txt;
-}
-
-function scrambleAnim(original, final, text, fps){
-    if(text.__timer){
-        clearInterval(text.__timer);
-        text.__timer = null;
-    }
-    let progress = 0;
-    text.__timer = setInterval(()=> {
-    
-    const speed = 0.045;
-    const len = Math.max(original.length, final.length);
-    
-    let out = "";
-
-    progress += len * speed;
-
-    for (let i = 0; i < len; i++) {
-        const target = final[i] ?? "";
-        const originalChar = original[i] ?? "";
-        if(i < progress){
-            out += target;
-        }else{
-            if(target === " " || originalChar === " ") out += " ";
-            else out += randomChar();
-        }
-    }
-    text.textContent = out;
-    console.log(progress);
-    if(progress >= len){
-        text.textContent = final;
-        clearInterval(text.__timer)
-        text.__timer = null;
-    }
-}, 1000 / fps);
-   
-
-}
 
 async function getPrescript(){
     const date = new Date();
@@ -163,14 +111,11 @@ async function showPrescript(){
     document.getElementById('prescript-text').textContent = prescript;
 }
 
+
+
 setInterval(draw, 100);
 showPrescript();
 
 
-const info_btn = document.getElementById("info-btn");
-info_btn.textContent = randomChars(4);
-
-info_btn.addEventListener("mouseenter", (e) => {scrambleAnim(info_btn.textContent, "Info", info_btn, normal_fps)});
-info_btn.addEventListener("mouseleave", (e) => {scrambleAnim(info_btn.textContent, randomChars(4), info_btn, normal_fps)});
-
-
+addScrambledButton("info-btn", "Info");
+addScrambledButton("tools-btn", "Tools");
